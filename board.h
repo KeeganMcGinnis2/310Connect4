@@ -1,3 +1,5 @@
+#ifndef BOARD_H
+#define BOARD_H
 #include <vector>
 #include <iostream>
 #include <cstdlib>
@@ -17,7 +19,11 @@ class connect4Board {
 
         void swapTurn();
 
+        char getTurn();
+
         bool columnFull(int col);
+
+        vector<int> legalMoves();
 
         bool isFull();
 
@@ -36,3 +42,5 @@ class connect4Board {
         char turn;
 
 };
+
+#endif

@@ -1,4 +1,6 @@
+#include "board.h"
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -10,7 +12,7 @@ class Player {
 
         void printName();
 
-        virtual int chooseMove() = 0;
+        virtual int chooseMove(connect4Board board) = 0;
 
     protected:
         string name;
@@ -22,20 +24,21 @@ class Human: public Player {
 
         Human(string n): Player(n) { };
 
-        int chooseMove();
+        int chooseMove(connect4Board board);
 };
 
-/*class Computer: public Player {
+class Computer: public Player {
     public:
-        Computer(): Player() { };
+        Computer();
 
-        Computer(string n): Player(n) { };
+        Computer(string n, int r);
 
-        int chooseMove();
+        int chooseMove(connect4Board board);
 
-        int pureMCTS();
+        int pureMCTS(connect4Board board);
 
-        vector<int> randomPlayout();
+        randomPlayout(connect4Board board, int index);
 
-        int hMCTS();
-};*/
+    private:
+        int random_playouts;
+};

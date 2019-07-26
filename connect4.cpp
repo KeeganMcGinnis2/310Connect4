@@ -7,24 +7,28 @@ using namespace std;
 
 int main() {
     connect4Board game_board;
-    Human playr;
-    Human playa("ryan.py");
+    Human player("ryan.py");
+    Computer AI("AI", 1000);
     int index;
     while(!game_board.isFull()) {
-        index = playr.chooseMove();
+        index = player.chooseMove(game_board);
         while(game_board.columnFull(index)) {
             cout << "column is full, pick another column\n";
-            index = playr.chooseMove();
+            index = player.chooseMove(game_board);
         }
         game_board.setIndex(index);
-        if(game_board.checkWin()) {
+        if(game_board.checkWin() || game_board.isFull()) {
             break;
         }
         cout << game_board << "\n";
         game_board.swapTurn();
-        index = playa.chooseMove();
+        index = AI.chooseMove(game_board);
+        while(game_board.columnFull(index)) {
+            cout << "column is full, pick another column\n";
+            index = AI.chooseMove(game_board);
+        }
         game_board.setIndex(index);
-        if(game_board.checkWin()) {
+        if(game_board.checkWin() || game_board.isFull()) {
             break;
         }
         cout << game_board << "\n";

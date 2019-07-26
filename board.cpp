@@ -28,9 +28,24 @@ void connect4Board::swapTurn() {
     }
 }
 
+char connect4Board::getTurn() {
+    return turn;
+}
+
 bool connect4Board::columnFull(int col) {
     int i;
     return (board[col+34] != ' ');
+}
+
+vector<int> connect4Board::legalMoves() {
+    vector<int> legal_moves;
+    int i;
+    for(i=1;i<8;i++) {
+        if(!columnFull(i)) {
+            legal_moves.push_back(i);
+        }
+    }
+    return legal_moves;
 }
 
 bool connect4Board::isFull() {
