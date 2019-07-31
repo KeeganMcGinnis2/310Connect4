@@ -113,6 +113,46 @@ bool connect4Board::checkDiagonal() {
     return false;
 }
 
+int connect4Board::getThrees() {
+    int threes;
+    int i, j;
+    //horizontal
+    for(i=0;i<36;i+=7) {
+        for(j=i;j<i+5;j++) {
+            if(board[j] == turn && board[j+1] == turn && board[j+2] == turn)
+                threes++;
+        }
+    }
+
+    //vertical
+    for(i=0;i<28;i++) {
+        if(board[i] == turn && board[i+7] == turn && board[i+14] == turn)
+            threes++;
+    }
+
+    //check right diagonals
+    for(i=0;i<22;i+=7) {
+        for(j=i;j<i+5;j++) {
+            if(board[j] == turn && board[j+8] == turn && board[j+16] == turn)
+                threes++;
+        }
+    }
+
+    //check left diagonals
+    for(i=2;i<25;i+=7) {
+        for(j=i;j<i+4;j++) {
+            if(board[j] == turn && board[j+6] == turn && board[j+12] == turn)
+                threes++;
+        }
+    }
+
+    return threes;
+}
+
+/*int connect4Board::getTwos() {
+
+}*/
+
 ostream &operator << (ostream &output, const connect4Board &game_board){
     output << "   1   2   3   4   5   6   7\n";
     output << " -----------------------------\n";

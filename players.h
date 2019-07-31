@@ -41,9 +41,15 @@ class Computer: public Player {
 
         int heuristicMCTS(connect4Board board);
 
+        int educatedPlayout(connect4Board, int index);
+        
+        int getGoodMove(connect4Board board);
+
         bool canWin(connect4Board board, int index);
 
         bool willLose(connect4Board board, int index);
+
+        int heuristic_(connect4Board board, int index);
 
 
     private:

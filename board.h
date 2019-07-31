@@ -35,6 +35,10 @@ class connect4Board {
 
         bool checkDiagonal();
 
+        int getThrees();
+
+        //int getTwos();
+
         friend ostream &operator << (ostream &output, const connect4Board &game_board);
 
     private:
