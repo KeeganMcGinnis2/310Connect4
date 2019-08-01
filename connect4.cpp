@@ -8,8 +8,8 @@ using namespace std;
 int main() {
     connect4Board game_board;
     //Human player("ryan.py");
-    Computer player("AI", 1000, true);
-    Computer AI("AI", 1000, false);
+    Computer AI("AI", 1000, true);
+    Computer player("AI", 100, false);
     int index;
     while(!game_board.isFull()) {
         index = player.chooseMove(game_board);
