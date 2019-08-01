@@ -167,27 +167,25 @@ int Computer::educatedPlayout(connect4Board board, int index) {
 
 int Computer::getGoodMove(connect4Board board) {
     vector<int> legal_moves = board.legalMoves();
+    if (legal_moves.size() == 1) {
+      return legal_moves.front();
+    }
     int i;
     double curr;
     srand(time(NULL));
     vector<int> best_moves;
-    double max = -10000000; 
+    double lowest = 10000000; 
+    long lowestIndex;
     for(i=0;i<legal_moves.size();i++) {
         curr = heuristic_(board, legal_moves[i]);
-        if(curr > max) {
-            best_moves.clear();
-            best_moves.push_back(legal_moves[i]);
-            max = curr;
-        } else if (curr > max*.2) {
-            best_moves.push_back(legal_moves[i]);
-        }
-
-        else if(best_moves[0] == curr) {
-            best_moves.push_back(curr);
+        if(curr < lowest) {
+            lowest = curr;
+            lowestIndex = i;
         }
     }
-    int random = rand() % best_moves.size();
-    return best_moves[random];
+    legal_moves.erase(legal_moves.begin() + lowestIndex);
+    int random = rand() % legal_moves.size();
+    return legal_moves[random];
 }
 
 bool Computer::canWin(connect4Board board, int index) {
@@ -205,10 +203,10 @@ double Computer::heuristic_(connect4Board board, int index) {
     board.setIndex(index);
     int good3s = board.getThrees();
     int good2s = board.getTwos();
-    double goodSum = (good3s + .3*good2s);
+    double goodSum = (good3s);
     board.swapTurn();
     int bad3s = board.getThrees();
     int bad2s = board.getTwos();
-    double badSum = (bad3s + .3*bad2s);
-    return goodSum - 1.5*badSum;
+    double badSum = (bad3s);
+    return goodSum - badSum;
 }

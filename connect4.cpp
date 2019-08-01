@@ -8,6 +8,7 @@ using namespace std;
 
 int main() {
     connect4Board game_board;
+<<<<<<< HEAD
     int player1, player2, heuristic;
     Human hp1, hp2;
     Computer cp1, cp2;
@@ -78,6 +79,11 @@ int main() {
     }
     
     
+=======
+    //Human player("ryan.py");
+    Computer AI("AI", 1000, true);
+    Computer player("AI", 100, false);
+>>>>>>> 3077097c850096a1d29135096de6b5ee0ff56bef
     int index;
     cout << game_board << "\n";
     while(!game_board.isFull()) {
