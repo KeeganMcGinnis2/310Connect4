@@ -37,6 +37,19 @@ bool connect4Board::columnFull(int col) {
     return (board[col+34] != ' ');
 }
 
+int connect4Board::columnSize(int col) {
+    int size = 0;
+    for (int i = 0; i < 6; i++) {
+      if (board[col + i*7 - 1] != ' ')
+        size ++;
+      else {
+        return size;
+      }
+    }
+    return size;
+}
+
+
 vector<int> connect4Board::legalMoves() {
     vector<int> legal_moves;
     int i;
@@ -119,21 +132,21 @@ int connect4Board::getThrees() {
     //horizontal
     for(i=0;i<36;i+=7) {
         for(j=i;j<i+5;j++) {
-            if(board[j] == turn && board[j+1] == turn && board[j+2] == turn)
+            if(board[j] == turn && board[j+1] == turn && board[j+2] == turn && board[j+3] == ' ')
                 threes++;
         }
     }
 
     //vertical
     for(i=0;i<28;i++) {
-        if(board[i] == turn && board[i+7] == turn && board[i+14] == turn)
+        if(board[i] == turn && board[i+7] == turn && board[i+14] == turn && board[i+21] == ' ')
             threes++;
     }
 
     //check right diagonals
     for(i=0;i<22;i+=7) {
         for(j=i;j<i+5;j++) {
-            if(board[j] == turn && board[j+8] == turn && board[j+16] == turn)
+            if(board[j] == turn && board[j+8] == turn && board[j+16] == turn && board[j+24] == ' ')
                 threes++;
         }
     }
@@ -141,7 +154,7 @@ int connect4Board::getThrees() {
     //check left diagonals
     for(i=2;i<25;i+=7) {
         for(j=i;j<i+4;j++) {
-            if(board[j] == turn && board[j+6] == turn && board[j+12] == turn)
+            if(board[j] == turn && board[j+6] == turn && board[j+12] == turn && board[j+18] == ' ')
                 threes++;
         }
     }
@@ -149,9 +162,41 @@ int connect4Board::getThrees() {
     return threes;
 }
 
-/*int connect4Board::getTwos() {
+int connect4Board::getTwos() {
+    int threes;
+    int i, j;
+    //horizontal
+    for(i=0;i<36;i+=7) {
+        for(j=i;j<i+5;j++) {
+            if(board[j] == turn && board[j+1] == turn && board[j+2] == ' ' && board[j+3] == ' ')
+                threes++;
+        }
+    }
 
-}*/
+    //vertical
+    for(i=0;i<28;i++) {
+        if(board[i] == turn && board[i+7] == turn && board[i+14] == ' ' && board[i+21] == ' ')
+            threes++;
+    }
+
+    //check right diagonals
+    for(i=0;i<22;i+=7) {
+        for(j=i;j<i+5;j++) {
+            if(board[j] == turn && board[j+8] == turn && board[j+16] == ' ' && board[j+24] == ' ')
+                threes++;
+        }
+    }
+
+    //check left diagonals
+    for(i=2;i<25;i+=7) {
+        for(j=i;j<i+4;j++) {
+            if(board[j] == turn && board[j+6] == turn && board[j+12] == ' ' && board[j+18] == ' ')
+                threes++;
+        }
+    }
+
+    return threes;
+}
 
 ostream &operator << (ostream &output, const connect4Board &game_board){
     output << "   1   2   3   4   5   6   7\n";

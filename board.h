@@ -23,6 +23,8 @@ class connect4Board {
 
         bool columnFull(int col);
 
+        int columnSize(int col);
+
         vector<int> legalMoves();
 
         bool isFull();
@@ -37,7 +39,7 @@ class connect4Board {
 
         int getThrees();
 
-        //int getTwos();
+        int getTwos();
 
         friend ostream &operator << (ostream &output, const connect4Board &game_board);
 

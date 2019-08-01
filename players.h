@@ -49,7 +49,7 @@ class Computer: public Player {
 
         bool willLose(connect4Board board, int index);
 
-        int heuristic_(connect4Board board, int index);
+        double heuristic_(connect4Board board, int index);
 
 
     private:

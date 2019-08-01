@@ -110,22 +110,23 @@ int Computer::randomPlayout(connect4Board board, int index) {
 
 int Computer::heuristicMCTS(connect4Board board) {
     vector<int> legal_moves = board.legalMoves();
+    vector<vector<int>> playoutResults;
     int i, j, curr;
     
     for(i=0;i<legal_moves.size();i++) {
         if(canWin(board, legal_moves[i])) 
             return legal_moves[i];
     }
-
+    
     for(i=0;i<legal_moves.size();i++) {
         if(willLose(board, legal_moves[i]))
             return legal_moves[i];
     }
-
+    
     for(i=0;i<legal_moves.size();i++) {
         vector<int> moveResults = {0, 0, 0, legal_moves[i]};
         for(j=0;j<random_playouts;j++) {
-            int result = educatedPlayout(board, legal_moves[i]0);
+            int result = educatedPlayout(board, legal_moves[i]);
             moveResults[result] += 1;
         }
         playoutResults.push_back(moveResults);
@@ -159,30 +160,32 @@ int Computer::educatedPlayout(connect4Board board, int index) {
         
         board.swapTurn();
         int random = getGoodMove(board);
-        board.setIndex(legal_moves[random]);
+        board.setIndex(random);
         legal_moves = board.legalMoves();
     }
 }
 
 int Computer::getGoodMove(connect4Board board) {
     vector<int> legal_moves = board.legalMoves();
-    int i, curr;
+    int i;
+    double curr;
     srand(time(NULL));
     vector<int> best_moves;
-    int max = -1; 
+    double max = -10000000; 
     for(i=0;i<legal_moves.size();i++) {
-        curr = heuristic(board, legal_moves[i]);
+        curr = heuristic_(board, legal_moves[i]);
         if(curr > max) {
             best_moves.clear();
             best_moves.push_back(legal_moves[i]);
             max = curr;
+        } else if (curr > max*.2) {
+            best_moves.push_back(legal_moves[i]);
         }
 
         else if(best_moves[0] == curr) {
             best_moves.push_back(curr);
         }
     }
-
     int random = rand() % best_moves.size();
     return best_moves[random];
 }
@@ -198,8 +201,14 @@ bool Computer::willLose(connect4Board board, int index) {
     return board.checkWin();
 }
 
-int Computer::heuristic_(connect4Board board, int index) {
+double Computer::heuristic_(connect4Board board, int index) {
     board.setIndex(index);
-    int sum = board.getThrees();
-    return sum;
+    int good3s = board.getThrees();
+    int good2s = board.getTwos();
+    double goodSum = (good3s + .3*good2s);
+    board.swapTurn();
+    int bad3s = board.getThrees();
+    int bad2s = board.getTwos();
+    double badSum = (bad3s + .3*bad2s);
+    return goodSum - 1.5*badSum;
 }
