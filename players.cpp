@@ -65,12 +65,12 @@ int Computer::pureMCTS(connect4Board board) {
         playoutResults.push_back(moveResults);
    }
 
-  for(i=0;i<playoutResults.size();i++) {
+  /*for(i=0;i<playoutResults.size();i++) {
       for(j=0;j<playoutResults[i].size();j++) {
           cout << playoutResults[i][j] << "  ";
       }
       cout << "\n";
-  }
+  }*/
 
    int maximum = 0;
    for(i=0;i<playoutResults.size();i++) {

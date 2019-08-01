@@ -11,7 +11,7 @@ int main() {
 
     int i, index;
     int pure_victories = 0, heuristic_victories = 0;
-    int games_played = 5;
+    int games_played = 50;
     //Pure goes first
     for(i=0;i<games_played;i++) {
         connect4Board game_board;
@@ -33,7 +33,7 @@ int main() {
             }
             game_board.swapTurn();
         }
-        cout << game_board << "\n";
+        //cout << game_board << "\n";
     }
 
     cout << "Results with Pure AI going first: \n";
@@ -64,7 +64,7 @@ int main() {
             }
             game_board.swapTurn();
         }
-        cout << game_board << "\n";
+        //cout << game_board << "\n";
     }
 
     cout << "Results with Heuristic AI going first: \n";
